@@ -13,11 +13,13 @@ try:
     m = gp.Model("aoi")
 
     subchannels = 5
-    slots = 3
+    slots = 4
     things = 10
 
     x = m.addVars(things, slots, vtype=GRB.INTEGER, name="x")
     p = m.addVars(things, subchannels, slots, vtype=GRB.BINARY, name="p")
+
+    m.setObjective(x.sum(), GRB.MINIMIZE)
 
     m.addConstrs(
         (
@@ -35,12 +37,15 @@ try:
         name="thing_limit",
     )
 
+    # please consider that models that have large matrix coefficient rang
+    # may have numerical issues.
     m.addConstrs(
-        -GRB.INFINITY * p.sum(i, "*", t) + x[i, t] + 1 <= x[i, t + 1]
-        for (i, t) in itertools.product(range(things), range(slots - 1))
+        (
+            (-slots * p.sum(i, "*", t)) + x[i, t] + 1 <= x[i, t + 1]
+            for (i, t) in itertools.product(range(things), range(slots - 1))
+        ),
+        name="aoi_limit",
     )
-
-    m.setObjective(x.sum(), GRB.MINIMIZE)
 
     m.optimize()
 
