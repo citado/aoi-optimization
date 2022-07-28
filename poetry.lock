@@ -9,10 +9,21 @@ python-versions = "*"
 [package.extras]
 matrixapi = ["numpy", "scipy"]
 
+[[package]]
+name = "gurobipy-stubs"
+version = "1.0.1"
+description = "Type stubs for gurobipy"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+gurobipy = ">=9.5.0"
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "a40ce75c672d9fbb055c5737a942e084ae0816298ec64d693b905422777680fb"
+content-hash = "37b7666bd563b175d963806348a1b5615925a3e380265fbcd279a46c8d499abf"
 
 [metadata.files]
 gurobipy = [
@@ -36,4 +47,8 @@ gurobipy = [
     {file = "gurobipy-9.5.2-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:fbdd7f275575dd98a7b3e96dd212ad513c9a2cd7885d1ecbab1243ed764f8dc7"},
     {file = "gurobipy-9.5.2-cp39-cp39-manylinux2014_x86_64.whl", hash = "sha256:494d69c539fd3ef9a288a060fd30e344bc00c632faa697a6927bef6aef72d978"},
     {file = "gurobipy-9.5.2-cp39-cp39-win_amd64.whl", hash = "sha256:f188b404a3067b82d6f4f2af1c51243721af689fb50a3fe1c7ab1f85971766eb"},
+]
+gurobipy-stubs = [
+    {file = "gurobipy-stubs-1.0.1.tar.gz", hash = "sha256:ebeb5e5aaa8b39360ea6025ee3715501bbebce36a9ab1bf15065c3e7d357beca"},
+    {file = "gurobipy_stubs-1.0.1-py3-none-any.whl", hash = "sha256:5434a1cda4f5293d599f4b931c2d48ac5cd6a2e5b6731c3a5599dc2bd84bb236"},
 ]

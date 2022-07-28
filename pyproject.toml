@@ -8,6 +8,7 @@ license = "GPLv3"
 [tool.poetry.dependencies]
 python = "^3.10"
 gurobipy = "^9.5.2"
+gurobipy-stubs = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 
