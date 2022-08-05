@@ -9,12 +9,29 @@ import itertools
 import gurobipy as gp
 from gurobipy import GRB
 
+SUBCHANNELS = 5
+SLOTS = 4
+THINGS = 10
+
+# each thing has a minimum spreading factor
+# each timeslot
+min_spreading_factor = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+]
+
+assert len(min_spreading_factor) == THINGS
+
 try:
     m = gp.Model("aoi")
-
-    SUBCHANNELS = 5
-    SLOTS = 4
-    THINGS = 10
 
     x = m.addVars(THINGS, SLOTS, vtype=GRB.INTEGER, name="x")
     p = m.addVars(THINGS, SUBCHANNELS, SLOTS, vtype=GRB.BINARY, name="p")
@@ -45,6 +62,15 @@ try:
             for (i, t) in itertools.product(range(THINGS), range(SLOTS - 1))
         ),
         name="aoi_limit",
+    )
+
+    m.addConstrs(
+        (
+            p[i, s, t] == 0
+            for (i, t) in itertools.product(range(THINGS), range(SLOTS))
+            for s in range(min_spreading_factor[i][t])
+        ),
+        name="spreading_factor_min",
     )
 
     m.optimize()
