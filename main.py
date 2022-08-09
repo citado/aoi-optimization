@@ -2,6 +2,9 @@
 problem description in gurobi.
 timeslots, subchannels and things are configurable.
 in each timeslot we assign a subchannel to each thing.
+
+please refer to problem statement in
+https://github.com/citado/RoadToPhD
 """
 
 import itertools
@@ -13,8 +16,6 @@ SUBCHANNELS = 5
 SLOTS = 4
 THINGS = 10
 
-# each thing has a minimum spreading factor
-# each timeslot
 min_spreading_factor = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
